@@ -1,0 +1,57 @@
+.menu {
+  min-width: 350px;
+  background-color: #333;
+  height: 100vh;
+}
+
+.menu__cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  height: 70px;
+  margin-bottom: 10px;
+  
+  background-color: #555;
+}
+
+.menu svg {
+  width: 30px;
+  height: 30px;
+}
+
+.menu__titulo {
+  padding: 10px 5px;
+  font-size: 19px;
+}
+
+.menu__itens {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 7px;
+}
+
+.menu__item {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 15px;
+}
+
+.menu__item:hover {
+  color-scheme: dark;
+  background-color: #ddd;
+  color: black;
+  cursor: pointer;
+}
+
+.menu__item-ativo {
+  background-color: #aaa;
+}
+
+.principal {
+  width: 100%;
+  height: 100vh;
+}
