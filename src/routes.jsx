@@ -3,13 +3,14 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './reset.css'
 import './index.css'
-import Root from './components/Root'
+import Root from './routes/Root'
 import Erro from './components/Erro'
-import Condominios from './pages/Condominios'
-import Predios from './pages/Predios'
-import Apartamentos from './pages/Apartamentos'
-import Locatarios from './pages/Locatarios'
-import Dashboard from './pages/Dashboard'
+import Condominios, {action as condAction, loader as condLoader } from './routes/Condominios'
+import EditCondominio, {loader as editCondLoader, action as editCondAction} from './routes/Condominios/editCond'
+import Predios from './routes/Predios'
+import Apartamentos from './routes/Apartamentos'
+import Locatarios from './routes/Locatarios'
+import Dashboard from './routes/Dashboard'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,15 @@ const router = createBrowserRouter([
           { index: true, element: <Dashboard />},
           {
             path: '/condominios',
-            element: <Condominios />
+            element: <Condominios />,
+            loader: condLoader,
+            action: condAction,
+          },
+          {
+            path: '/condominios/:condId/edit',
+            element: <EditCondominio />,
+            loader: editCondLoader,
+            action: editCondAction
           },
           {
             path: '/predios',

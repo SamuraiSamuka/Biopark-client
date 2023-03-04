@@ -127,3 +127,8 @@ th, td {
 th {
   font-weight: 700
 }
+
+input {
+  border-radius: 7px;
+  padding: 7px 10px;
+}

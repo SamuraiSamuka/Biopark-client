@@ -24,6 +24,9 @@ const dadosFake = [
 
 export default function ApartamentosLista() {
   return (
+    dadosFake.length === 0?
+    <div className="locatarios-lista">Não há apartamentos cadastrados.</div>
+    :
     <div className="apartamento">
         <div className="apartamento__filtros">
           <div className="select-condominio">

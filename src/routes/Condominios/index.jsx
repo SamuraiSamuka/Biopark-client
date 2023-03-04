@@ -2,9 +2,22 @@ import React from 'react'
 import Banner from '../../components/Banner'
 import Condominio from '../../components/Condominio'
 import './Condominios.css'
-import { Form, useLoaderData, useSubmit } from 'react-router-dom'
+import { Form, redirect, useLoaderData, useSubmit } from 'react-router-dom'
+import { createCondominio, getCondominios } from '../../serverCond'
+
+export async function loader() {
+  const condominios = await getCondominios();
+  return { condominios }
+}
+
+export async function action(){
+  const condominio = await createCondominio()
+  return redirect(`/condominios/${condominio.id}/edit`)
+}
 
 export default function Condominios() {
+  const { condominios } = useLoaderData();
+  console.log(condominios[0].condName)
   return (
     <section className="condominios pagina">
       <Banner
@@ -26,6 +39,7 @@ export default function Condominios() {
           </Form>
         </div>
         <div className="condominios__corpo pagina__corpo">
+          {condominios.map(condominio => condominio.condName)}
           <Condominio 
             titulo="Parque da Alvorada"
             endereco="Rua Álvares Cabral, nº 50, Pituba, Salvador-Ba"

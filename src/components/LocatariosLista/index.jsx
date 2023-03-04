@@ -26,6 +26,10 @@ export default function LocatariosLista() {
       ]
 
   return (
+
+    dadosFake.length === 0?
+    <div className="locatarios-lista">Não há locatários cadastrados.</div>
+    :
     <div className="locatarios-lista">
         <table className="apartamento__lista">
             <thead>
