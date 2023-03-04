@@ -16,10 +16,14 @@
   background-color: #555;
 }
 
-.menu svg {
-  width: 30px;
-  height: 30px;
+.menu__cabecalho svg {
+  width: 35px;
+  height: 35px;
 }
+
+/* .menu__cabecalho svg:hover {
+  cursor: pointer;
+} */
 
 .menu__titulo {
   padding: 10px 5px;
@@ -34,10 +38,18 @@
 }
 
 .menu__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 15px;
   font-size: 18px;
   font-weight: 500;
   border-radius: 15px;
+}
+
+.menu__item svg {
+  width: 25px;
+  height: 25px;
 }
 
 .menu__item:hover {
@@ -48,10 +60,10 @@
 }
 
 .menu__item-ativo {
-  background-color: #aaa;
+  background-color: #888;
 }
 
-.principal {
+.conteudo {
   width: 100%;
   height: 100vh;
 }
