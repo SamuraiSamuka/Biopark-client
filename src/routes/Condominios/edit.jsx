@@ -12,18 +12,18 @@ export async function loader({params}) {
 export async function action({request, params}) {
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
+    Object.assign(updates, {nulo:false})
     await updateCondominio(params.condId, updates);
     return redirect("/condominios")
 }
 
 async function deletar(id){
-    console.log(await deleteCondominio(id))
+    await deleteCondominio(id)
 }
 
 export default function EditCondominio() {
     const navigate = useNavigate();
     const { id, condominio } = useLoaderData();
-    console.log(id, condominio)
   return (
     <div className="edit-condominio pagina">
         <Banner
@@ -43,10 +43,10 @@ export default function EditCondominio() {
                     />
                     <div className="endereco">
                         <CampoTexto
-                            label="Estado"
-                            placeholder="Estado"
-                            name="Estado"
-                            className="condominio__form__estado"
+                            label="UF"
+                            placeholder="UF"
+                            name="UF"
+                            className="condominio__form__UF"
                         />
                         <CampoTexto
                             label="Cidade"

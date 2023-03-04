@@ -17,7 +17,6 @@ export async function action(){
 
 export default function Condominios() {
   const { condominios } = useLoaderData();
-  console.log(condominios[0].condName)
   return (
     <section className="condominios pagina">
       <Banner
@@ -39,13 +38,17 @@ export default function Condominios() {
           </Form>
         </div>
         <div className="condominios__corpo pagina__corpo">
-          {condominios.map(condominio => condominio.condName)}
-          <Condominio 
-            titulo="Parque da Alvorada"
-            endereco="Rua Álvares Cabral, nº 50, Pituba, Salvador-Ba"
+          {condominios.length > 0 ?
+          condominios.map(condominio => 
+          <Condominio
+            key={condominio.id}
+            id={condominio.id}
+            titulo={condominio.Nome}
+            endereco={`${condominio.Logradouro}, nº ${condominio.Numero}, ${condominio.Cidade}-${condominio.UF}`}
             imagemUrl="https://direcional.com.br/wp-content/uploads/2021/12/Acesso_Conquista-Maria-Paula_direcional.jpg"
           >
           </Condominio>
+          ):"Ainda não há condomínios cadastrados."}
         </div>
       </main>
     </section>

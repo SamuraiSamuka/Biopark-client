@@ -1,12 +1,12 @@
 import './Predio.css'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/Ai'
 
-export default function Predio({imagemUrl}) {
+export default function Predio({imagemUrl, nome, condominio,}) {
   return (
     <div className="predio" style={{backgroundImage: `url(${imagemUrl})`}}>
       <div className="predio__cabecalho">
-        <h2>Torre a</h2>
-        <h3>Parque da Alvorada</h3>
+        <h2>{nome}</h2>
+        <h3>{condominio}</h3>
       </div>
       <div className="predio__corpo">
         <div className="info__legendas">

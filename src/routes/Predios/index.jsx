@@ -1,9 +1,21 @@
 import Banner from "../../components/Banner"
-import { Form } from "react-router-dom"
+import { Form, redirect, useLoaderData } from "react-router-dom"
 import Predio from "../../components/Predio"
+import { createPredio, getPredios } from "../../serverPred"
 import './Predios.css'
 
+export async function loader() {
+  const predios = await getPredios();
+  return { predios }
+}
+
+export async function action(){
+  const predio = await createPredio();
+  return redirect(`/predios/${predio.id}/edit`)
+}
+
 export default function Predios() {
+  const { predios } = useLoaderData();
   return (
     <div className="predios pagina">
       <Banner
@@ -26,9 +38,16 @@ export default function Predios() {
             </Form>
         </div>
         <div className="pagina__corpo">
+          {predios.length > 0 ?
+          predios.map(predio => 
           <Predio
+            key={predio.id}
+            nome={predio.Nome}
+            condominio={predio.Condominio}
             imagemUrl="https://www.istoedinheiro.com.br/wp-content/uploads/sites/17/2022/09/63938-418x235.jpg"
-          />
+          >
+          </Predio>
+          ):"Ainda não há prédios cadastrados."}
         </div>
     </main>
     </div>
