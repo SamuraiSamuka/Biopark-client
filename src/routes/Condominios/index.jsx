@@ -39,16 +39,20 @@ export default function Condominios() {
         </div>
         <div className="condominios__corpo pagina__corpo">
           {condominios.length > 0 ?
-          condominios.map(condominio => 
-          <Condominio
-            key={condominio.id}
-            id={condominio.id}
-            titulo={condominio.Nome}
-            endereco={`${condominio.Logradouro}, nº ${condominio.Numero}, ${condominio.Cidade}-${condominio.UF}`}
-            imagemUrl="https://direcional.com.br/wp-content/uploads/2021/12/Acesso_Conquista-Maria-Paula_direcional.jpg"
-          >
-          </Condominio>
-          ):"Ainda não há condomínios cadastrados."}
+          condominios.map(condominio => {
+            if(!(condominio.nulo)){
+              return (
+                <Condominio
+                  key={condominio.id}
+                  id={condominio.id}
+                  titulo={condominio.Nome}
+                  endereco={`${condominio.Logradouro}, nº ${condominio.Numero}, ${condominio.Cidade}-${condominio.UF}`}
+                  imagemUrl="https://direcional.com.br/wp-content/uploads/2021/12/Acesso_Conquista-Maria-Paula_direcional.jpg"
+                >
+                </Condominio>
+            )}}
+          )
+          :"Ainda não há condomínios cadastrados."}
         </div>
       </main>
     </section>

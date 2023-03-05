@@ -6,24 +6,26 @@ export default function Condominio({titulo, endereco, children, imagemUrl, id}) 
   return (
     <div className="condominio" style={{backgroundImage: `url(${imagemUrl})`}}>
       <div className="condominio__cabecalho">
-        <h2 className='condominio__titulo'>{titulo}</h2>
-        <h4 className="condominio__endereco">{endereco}</h4>
-      </div>
-      <div className="comandos">
-        <Form action={`/condominios/${id}/edit`}>
-          <button type='submit'><AiOutlineEdit />Editar</button>
-        </Form>
-        <Form
-          method='post'
-          action={`/condominios/${id}/destroy`}
-          onSubmit={(event)=>{
-            if(!confirm("Por favor confime que deseja apagar este condominio.")){
-              event.preventDefault();
-            }
-          }}
-        >
-          <button type='submit'><AiOutlineDelete />Deletar</button>
-        </Form>
+        <div>
+          <h2 className='condominio__titulo'>{titulo}</h2>
+          <h4 className="condominio__endereco">{endereco}</h4>
+        </div>
+        <div className="comandos">
+          <Form action={`/condominios/${id}/edit`}>
+            <button type='submit' className='botao'><AiOutlineEdit />Editar</button>
+          </Form>
+          <Form
+            method='post'
+            action={`/condominios/${id}/destroy`}
+            onSubmit={(event)=>{
+              if(!confirm("Por favor confime que deseja apagar este condominio. Tudo associado a ele também será deletado.")){
+                event.preventDefault();
+              }
+            }}
+          >
+            <button type='submit' className='botao'><AiOutlineDelete />Deletar</button>
+          </Form>
+        </div>
       </div>
       <div className="condominio__body">
         <div className="info__legendas">

@@ -39,15 +39,21 @@ export default function Predios() {
         </div>
         <div className="pagina__corpo">
           {predios.length > 0 ?
-          predios.map(predio => 
-          <Predio
-            key={predio.id}
-            nome={predio.Nome}
-            condominio={predio.Condominio}
-            imagemUrl="https://www.istoedinheiro.com.br/wp-content/uploads/sites/17/2022/09/63938-418x235.jpg"
-          >
-          </Predio>
-          ):"Ainda não há prédios cadastrados."}
+          predios.map(predio => {
+            if(!predio.nulo) {
+              return (
+                <Predio
+                  key={predio.id}
+                  id={predio.id}
+                  nome={predio.Nome}
+                  condominio={predio.Condominio}
+                  imagemUrl="https://www.istoedinheiro.com.br/wp-content/uploads/sites/17/2022/09/63938-418x235.jpg"
+                >
+                </Predio>
+              )
+            }
+          })
+          :"Ainda não há prédios cadastrados."}
         </div>
     </main>
     </div>

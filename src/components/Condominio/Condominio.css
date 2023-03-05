@@ -10,6 +10,7 @@
     border-radius: 15px;
     background-color: #777;
     filter: drop-shadow(4px 4px 5px rgba(0, 0, 0, 0.5));
+    position: relative;
 }
 
 /* .condominio:hover {
@@ -18,6 +19,9 @@
 } */
 
 .condominio__cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
@@ -29,4 +33,9 @@
     display: flex;
     gap: 10px;
     margin-bottom: 10px;
+}
+
+.condominio .comandos {
+    display: flex;
+    gap: 10px;
 }

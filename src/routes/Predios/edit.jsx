@@ -42,24 +42,28 @@ export default function EditPredio() {
                         placeholder="Condominio"
                         name="Condominio"
                         className="predio__form__condominio"
+                        defaultValue={predio.Condominio}
                     />
                     <CampoTexto
                         label="Nome"
                         placeholder="Nome"
                         name="Nome"
                         className="predio__form__nome"
+                        defaultValue={predio.Nome}
                     />
                     <CampoTexto
                         label="Nº de pisos"
                         placeholder="Nº de pisos"
                         name="Pisos"
                         className="predio__form__pisos"
+                        defaultValue={predio.Pisos}
                     />
                     <CampoTexto
                         label="Identificação adicional"
                         placeholder="Identificação"
-                        name="Identificação"
-                        className="predio__form__identificação"
+                        name="Identificacao"
+                        className="predio__form__identificacao"
+                        defaultValue={predio.Identificacao}
                     />
                     <div className="editComandos">
                         <button 

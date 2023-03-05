@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function CampoTexto({className, label, type, placeholder, name}) {
+export default function CampoTexto({className, label, type, placeholder, name, defaultValue}) {
   return (
     <div className={`input ${className}`}>
         <label htmlFor={name}>{label}</label>
@@ -8,6 +8,7 @@ export default function CampoTexto({className, label, type, placeholder, name}) 
             type={type || "text"}
             placeholder={placeholder}
             name={name}
+            defaultValue={defaultValue}
         />
     </div>
   )

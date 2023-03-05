@@ -40,6 +40,7 @@ export default function EditCondominio() {
                         placeholder="Nome do condomínio"
                         name="Nome"
                         className="condominio__form__nome"
+                        defaultValue={condominio.Nome}
                     />
                     <div className="endereco">
                         <CampoTexto
@@ -47,30 +48,35 @@ export default function EditCondominio() {
                             placeholder="UF"
                             name="UF"
                             className="condominio__form__UF"
+                            defaultValue={condominio.UF}
                         />
                         <CampoTexto
                             label="Cidade"
                             placeholder="Cidade"
                             name="Cidade"
                             className="condominio__form__cidade"
+                            defaultValue={condominio.Cidade}
                         />
                         <CampoTexto
                             label="Bairro"
                             placeholder="Bairro"
                             name="Bairro"
                             className="condominio__form__bairro"
+                            defaultValue={condominio.Bairro}
                         />
                         <CampoTexto
                             label="Logradouro"
                             placeholder="Logradouro"
                             name="Logradouro"
                             className="condominio__form__logradouro"
+                            defaultValue={condominio.Logradouro}
                         />
                         <CampoTexto
                             label="Numero"
                             placeholder="Numero"
                             name="Numero"
                             className="condominio__form__numero"
+                            defaultValue={condominio.Numero}
                         />
                     </div>
                     <div className="editComandos">

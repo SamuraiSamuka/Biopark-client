@@ -1,30 +1,10 @@
 import './ApartamentosLista.css'
-import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/Ai'
+import { AiOutlineDelete, AiOutlineEdit, AiOutlineEye } from 'react-icons/Ai'
+import { Form } from 'react-router-dom'
 
-const dadosFake = [
-  {
-    id: 1,
-    numero: 15,
-    andar: "2º",
-    area: "300 m²",
-    locatario: "Fulano da Silva Santos",
-    aluguel_valor: 1000.00,
-    situacao: "pago"
-  },
-  {
-    id: 2,
-    numero: 16,
-    andar: "2º",
-    area: "300 m²",
-    locatario: "Fulano da Silva Santos",
-    aluguel_valor: 1000.00,
-    situacao: "vencido"
-  }
-]
-
-export default function ApartamentosLista() {
+export default function ApartamentosLista({apartamentos}) {
   return (
-    dadosFake.length === 0?
+    apartamentos.length === 0?
     <div className="locatarios-lista">Não há apartamentos cadastrados.</div>
     :
     <div className="apartamento">
@@ -48,28 +28,46 @@ export default function ApartamentosLista() {
         <table className="apartamento__lista">
             <thead>
               <tr>
-                <th>Número</th>
+                <th>Condomínio</th>
+                <th>Prédio</th>
+                <th>Área (m²)</th>
                 <th>Andar</th>
-                <th>Modelo.area</th>
-                <th>Locatário</th>
+                <th>Número</th>
+                <th>Status</th>
                 <th>Valor do Aluguel</th>
-                <th>Situação</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              {dadosFake.map(apart => <tr key={apart.id}>
-                <td>{apart.numero}</td>
-                <td>{apart.andar}</td>
-                <td>{apart.area}</td>
-                <td>{apart.locatario}</td>
-                <td>R$ {apart.aluguel_valor}</td>
-                <td>{apart.situacao}</td>
-                <td><div className="comandos">
-                  <AiOutlineEdit />
-                  <AiOutlineDelete />
-                </div></td>
-              </tr>
+              {apartamentos.map(apart => 
+                <tr key={apart.id}>
+                  <td>{apart.Condominio}</td>
+                  <td>{apart.Predio}</td>
+                  <td>{apart.Area}</td>
+                  <td>{apart.Andar}</td>
+                  <td>{apart.Numero}</td>
+                  <td>Disponível</td>
+                  <td>R$ {apart.Aluguel_valor}</td>
+                  <td>
+                    <div className="lista-comandos">
+                      <button type='button' className='botao'><AiOutlineEye/></button>
+                      <Form action={`/apartamentos/${apart.id}/edit`}>
+                        <button type='submit' className='botao'><AiOutlineEdit /></button>
+                      </Form>
+                      <Form
+                        method='post'
+                        action={`/apartamentos/${apart.id}/destroy`}
+                        onSubmit={(event)=>{
+                          if(!confirm("Por favor confime que deseja apagar este apartamento. Tudo associado a ele também será deletado.")){
+                            event.preventDefault();
+                          }
+                        }}
+                      >
+                        <button type='submit' className='botao'><AiOutlineDelete /></button>
+                      </Form>
+                    </div>
+                  </td>
+                </tr>
               )}
             </tbody>
         </table>

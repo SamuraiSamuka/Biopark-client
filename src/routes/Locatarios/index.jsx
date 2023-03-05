@@ -1,8 +1,21 @@
 import Banner from "../../components/Banner"
 import LocatariosLista from "../../components/LocatariosLista"
-import { Form, redirect } from "react-router-dom"
+import { Form, redirect, useLoaderData } from "react-router-dom"
+import { createLocatario, getLocatarios } from "../../serverLocat"
+
+
+export async function loader(){
+  const locatarios = await getLocatarios();
+  return { locatarios }
+}
+
+export async function action(){
+  const locatario = await createLocatario();
+  return redirect(`/locatarios/${locatario.id}/edit`)
+}
 
 export default function Locatarios() {
+  const { locatarios } = useLoaderData();
   return (
     <div className="locatarios">
       <Banner
@@ -26,7 +39,7 @@ export default function Locatarios() {
         </div>
 
         <div className="pagina__corpo">
-          <LocatariosLista/>
+          <LocatariosLista locatarios={locatarios}/>
         </div>
       </main>
     </div>

@@ -1,8 +1,20 @@
 import Banner from "../../components/Banner"
-import { Form } from "react-router-dom"
+import { Form, redirect, useLoaderData } from "react-router-dom"
 import ApartamentosLista from "../../components/ApartamentosLista"
+import { createApartamento, getApartamentos } from "../../serverApart"
+
+export async function loader(){
+  const apartamentos = await getApartamentos();
+  return { apartamentos }
+}
+
+export async function action(){
+  const apartamento = await createApartamento();
+  return redirect(`/apartamentos/${apartamento.id}/edit`)
+}
 
 export default function Apartamentos() {
+  const { apartamentos } = useLoaderData();
   return (
     <div className="apartamentos pagina">
       <Banner
@@ -25,7 +37,8 @@ export default function Apartamentos() {
             </Form>
         </div>
         <div className="pagina__corpo">
-          <ApartamentosLista/>
+          <ApartamentosLista
+            apartamentos={apartamentos}/>
         </div>
       </main>
     </div>
