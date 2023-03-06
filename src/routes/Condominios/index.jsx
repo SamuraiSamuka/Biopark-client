@@ -4,14 +4,15 @@ import Condominio from '../../components/Condominio'
 import './Condominios.css'
 import { Form, redirect, useLoaderData, useSubmit } from 'react-router-dom'
 import { createCondominio, getCondominios } from '../../serverCond'
+import axios from 'axios'
 
 export async function loader() {
-  const condominios = await getCondominios();
+  const condominios = await (await axios.get("http://localhost:3030/condominios")).data
   return { condominios }
 }
 
 export async function action(){
-  const condominio = await createCondominio()
+  const condominio = await (await axios.post("http://localhost:3030/condominios", {nome: "_", uf: "_", cidade: "_", bairro: "_", logradouro: "_", numero: "_"})).data
   return redirect(`/condominios/${condominio.id}/edit`)
 }
 
@@ -40,13 +41,13 @@ export default function Condominios() {
         <div className="condominios__corpo pagina__corpo">
           {condominios.length > 0 ?
           condominios.map(condominio => {
-            if(!(condominio.nulo)){
+            if(!(condominio.nome === "_")){
               return (
                 <Condominio
                   key={condominio.id}
                   id={condominio.id}
-                  titulo={condominio.Nome}
-                  endereco={`${condominio.Logradouro}, nº ${condominio.Numero}, ${condominio.Cidade}-${condominio.UF}`}
+                  titulo={condominio.nome}
+                  endereco={`${condominio.logradouro}, nº ${condominio.numero}, ${condominio.cidade}-${condominio.uf}`}
                   imagemUrl="https://direcional.com.br/wp-content/uploads/2021/12/Acesso_Conquista-Maria-Paula_direcional.jpg"
                 >
                 </Condominio>

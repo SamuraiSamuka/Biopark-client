@@ -2,7 +2,7 @@ import './Condominio.css'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/Ai'
 import { Form } from 'react-router-dom'
 
-export default function Condominio({titulo, endereco, children, imagemUrl, id}) {
+export default function Condominio({titulo, endereco,imagemUrl, id}) {
   return (
     <div className="condominio" style={{backgroundImage: `url(${imagemUrl})`}}>
       <div className="condominio__cabecalho">
@@ -40,7 +40,6 @@ export default function Condominio({titulo, endereco, children, imagemUrl, id}) 
             <li className='info__legendas__item'>Torre c</li>
           </ul>
         </div>
-        {children}
       </div>
     </div>
   )

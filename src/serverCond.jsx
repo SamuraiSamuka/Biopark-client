@@ -1,5 +1,5 @@
 import localforage from "localforage";
-import { v4 as uuid } from "uuid";
+import { v4 as uuuid } from "uuid";
 
 export async function getCondominios(){
     let condominios = await localforage.getItem("condominios");
@@ -7,33 +7,33 @@ export async function getCondominios(){
     return condominios;
 }
 
-export async function getCondominio(id){
+export async function getCondominio(uuid){
     let condominios = await localforage.getItem("condominios");
-    let condominio = condominios.find(cond => cond.id === id)
+    let condominio = condominios.find(cond => cond.uuid === uuid)
     return condominio ?? null;
 }
 
 export async function createCondominio(){
-    let id = uuid();
-    let condominio = { id, createdAt: Date.now(), nulo: true}
+    let uuid = uuuid();
+    let condominio = { uuid, createdAt: Date.now(), nulo: true}
     let condominios = await getCondominios();
     condominios.unshift(condominio);
     await localforage.setItem("condominios", condominios)
     return condominio
 }
 
-export async function updateCondominio(id, updates) {
+export async function updateCondominio(uuid, updates) {
     let condominios = await localforage.getItem("condominios");
-    let condominio = condominios.find(cond => cond.id === id)
-    if(!condominio) throw new Error("Nenhum condomínio encontrado com o id", id);
+    let condominio = condominios.find(cond => cond.uuid === uuid)
+    if(!condominio) throw new Error("Nenhum condomínio encontrado com o uuid", uuid);
     Object.assign(condominio, updates);
     await localforage.setItem("condominios", condominios)
     return condominio
 }
 
-export async function deleteCondominio(id) {
+export async function deleteCondominio(uuid) {
     let condominios = await localforage.getItem("condominios")
-    let indice = condominios.findIndex(condominio => condominio.id === id);
+    let indice = condominios.findIndex(condominio => condominio.uuid === uuid);
     if (indice > -1) {
         condominios.splice(indice, 1);
         await localforage.setItem("condominios", condominios);

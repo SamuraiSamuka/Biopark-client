@@ -2,8 +2,10 @@ import Banner from "../../components/Banner"
 import { Form, redirect, useLoaderData } from "react-router-dom"
 import ApartamentosLista from "../../components/ApartamentosLista"
 import { createApartamento, getApartamentos } from "../../serverApart"
+import axios from "axios"
 
 export async function loader(){
+  // const condominios = await (await axios.get("http://localhost:3030/condominios")).data
   const apartamentos = await getApartamentos();
   return { apartamentos }
 }

@@ -2,12 +2,13 @@ import './Predio.css'
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/Ai'
 import { Form } from 'react-router-dom';
 
-export default function Predio({imagemUrl, nome, condominio, id}) {
+export default function Predio({imagemUrl, nome, condominio, condominioId, id, pisos}) {
   return (
     <div className="predio" style={{backgroundImage: `url(${imagemUrl})`}}>
       <div className="predio__cabecalho">
         <h2>{nome}</h2>
         <h3>{condominio}</h3>
+        <h4>{condominioId}</h4>
       </div>
       <div className="predio__corpo">
         <div className="info__legendas">

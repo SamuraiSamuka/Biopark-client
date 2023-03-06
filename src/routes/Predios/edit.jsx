@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react'
 import { Form, redirect, useLoaderData, useNavigate } from 'react-router-dom'
 import Banner from '../../components/Banner'
@@ -6,15 +7,17 @@ import { deletePredio, getPredio, updatePredio } from '../../serverPred';
 
 export async function loader({params}) {
     const id = params.predId
-    const predio = await getPredio(id)
+    const predio = await (await axios.get(`http://localhost:3030/predios/${id}`)).data
+    // const predio = await getPredio(id)
     return { id, predio }
 }
 
 export async function action({request, params}) {
+    const id = params.predId
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
-    Object.assign(updates, {nulo:false})
-    await updatePredio(params.predId, updates);
+    const predio = await (await axios.put(`http://localhost:3030/predios/${id}`, {condominioid: updates.CondominioId, nome: updates.Nome, pisos: updates.Pisos })).data
+    console.log(predio)
     return redirect("/predios")
 }
 
@@ -38,33 +41,33 @@ export default function EditPredio() {
             <div className="pagin__corpo">
                 <Form method='post'>
                     <CampoTexto
-                        label="Condominio"
-                        placeholder="Condominio"
-                        name="Condominio"
+                        label="Condominio id"
+                        placeholder="Condominio id"
+                        name="CondominioId"
                         className="predio__form__condominio"
-                        defaultValue={predio.Condominio}
+                        defaultValue={predio.condominioid}
                     />
                     <CampoTexto
                         label="Nome"
                         placeholder="Nome"
                         name="Nome"
                         className="predio__form__nome"
-                        defaultValue={predio.Nome}
+                        defaultValue={predio.nome}
                     />
                     <CampoTexto
                         label="Nº de pisos"
                         placeholder="Nº de pisos"
                         name="Pisos"
                         className="predio__form__pisos"
-                        defaultValue={predio.Pisos}
+                        defaultValue={predio.pisos}
                     />
-                    <CampoTexto
+                    {/* <CampoTexto
                         label="Identificação adicional"
                         placeholder="Identificação"
                         name="Identificacao"
                         className="predio__form__identificacao"
                         defaultValue={predio.Identificacao}
-                    />
+                    /> */}
                     <div className="editComandos">
                         <button 
                             type="submit"

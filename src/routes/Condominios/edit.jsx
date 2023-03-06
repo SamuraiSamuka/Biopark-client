@@ -1,3 +1,4 @@
+import axios from "axios"
 import { Form, redirect, useLoaderData, useNavigate } from "react-router-dom"
 import Banner from "../../components/Banner"
 import CampoTexto from "../../components/CampoTexto"
@@ -5,15 +6,15 @@ import { deleteCondominio, getCondominio, updateCondominio } from "../../serverC
 
 export async function loader({params}) {
     const id = params.condId
-    const condominio = await getCondominio(id)
+    const condominio = await (await axios.get(`http://localhost:3030/condominios/${id}`)).data
     return { id, condominio }
 }
 
 export async function action({request, params}) {
+    const id = params.condId
     const formData = await request.formData();
     const updates = Object.fromEntries(formData);
-    Object.assign(updates, {nulo:false})
-    await updateCondominio(params.condId, updates);
+    const condominio = await (await axios.put(`http://localhost:3030/condominios/${id}`, {nome: updates.Nome, uf: updates.UF, cidade: updates.Cidade, bairro: updates.Bairro, logradouro: updates.Logradouro, numero: updates.Numero})).data
     return redirect("/condominios")
 }
 
@@ -40,7 +41,7 @@ export default function EditCondominio() {
                         placeholder="Nome do condomínio"
                         name="Nome"
                         className="condominio__form__nome"
-                        defaultValue={condominio.Nome}
+                        defaultValue={condominio.nome}
                     />
                     <div className="endereco">
                         <CampoTexto
@@ -48,35 +49,35 @@ export default function EditCondominio() {
                             placeholder="UF"
                             name="UF"
                             className="condominio__form__UF"
-                            defaultValue={condominio.UF}
+                            defaultValue={condominio.uf}
                         />
                         <CampoTexto
                             label="Cidade"
                             placeholder="Cidade"
                             name="Cidade"
                             className="condominio__form__cidade"
-                            defaultValue={condominio.Cidade}
+                            defaultValue={condominio.cidade}
                         />
                         <CampoTexto
                             label="Bairro"
                             placeholder="Bairro"
                             name="Bairro"
                             className="condominio__form__bairro"
-                            defaultValue={condominio.Bairro}
+                            defaultValue={condominio.bairro}
                         />
                         <CampoTexto
                             label="Logradouro"
                             placeholder="Logradouro"
                             name="Logradouro"
                             className="condominio__form__logradouro"
-                            defaultValue={condominio.Logradouro}
+                            defaultValue={condominio.logradouro}
                         />
                         <CampoTexto
                             label="Numero"
                             placeholder="Numero"
                             name="Numero"
                             className="condominio__form__numero"
-                            defaultValue={condominio.Numero}
+                            defaultValue={condominio.numero}
                         />
                     </div>
                     <div className="editComandos">
@@ -88,7 +89,7 @@ export default function EditCondominio() {
                             type="button"
                             className="botao"
                             onClick={() => {
-                                if(condominio.nulo){
+                                if(condominio.nome = "_"){
                                     deletar(id)
                                 }
                                 navigate(-1);

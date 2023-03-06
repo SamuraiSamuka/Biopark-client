@@ -1,21 +1,23 @@
 import Banner from "../../components/Banner"
 import { Form, redirect, useLoaderData } from "react-router-dom"
 import Predio from "../../components/Predio"
-import { createPredio, getPredios } from "../../serverPred"
 import './Predios.css'
+import axios from "axios"
 
 export async function loader() {
-  const predios = await getPredios();
-  return { predios }
+  const predios = await (await axios.get("http://localhost:3030/predios")).data
+  const condominios = await (await axios.get("http://localhost:3030/condominios")).data
+  return { predios, condominios }
 }
 
 export async function action(){
-  const predio = await createPredio();
+  const predio = await (await axios.post("http://localhost:3030/predios", {nome: "_", condominioid: 0 , pisos: "_"})).data
   return redirect(`/predios/${predio.id}/edit`)
 }
 
 export default function Predios() {
-  const { predios } = useLoaderData();
+  const { predios, condominios } = useLoaderData();
+  console.log(predios, condominios)
   return (
     <div className="predios pagina">
       <Banner
@@ -40,13 +42,16 @@ export default function Predios() {
         <div className="pagina__corpo">
           {predios.length > 0 ?
           predios.map(predio => {
-            if(!predio.nulo) {
+            console.log((condominios.find(c => c.id === predio.condominioid)))
+            if(!(predio.nome === "_")) {
               return (
                 <Predio
                   key={predio.id}
                   id={predio.id}
-                  nome={predio.Nome}
-                  condominio={predio.Condominio}
+                  nome={predio.nome}
+                  // condominio={}
+                  condominioId={predio.condominioid}
+                  pisos={predio.pisos}
                   imagemUrl="https://www.istoedinheiro.com.br/wp-content/uploads/sites/17/2022/09/63938-418x235.jpg"
                 >
                 </Predio>
